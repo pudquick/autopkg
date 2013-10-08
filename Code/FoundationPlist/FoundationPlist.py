@@ -43,7 +43,7 @@ and writePlistToString().
 
 from Foundation import NSData, \
                        NSPropertyListSerialization, \
-                       NSPropertyListMutableContainers, \
+                       NSPropertyListMutableContainersAndLeaves, \
                        NSPropertyListXMLFormat_v1_0
 
 class FoundationPlistException(Exception):
@@ -63,7 +63,7 @@ def readPlist(filepath):
     plistData = NSData.dataWithContentsOfFile_(filepath)
     dataObject, plistFormat, error = \
         NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(
-                     plistData, NSPropertyListMutableContainers, None, None)
+                     plistData, NSPropertyListMutableContainersAndLeaves, None, None)
     if error:
         error = error.encode('ascii', 'ignore')
         errmsg = "%s in file %s" % (error, filepath)
@@ -77,7 +77,7 @@ def readPlistFromString(data):
     plistData = buffer(data)
     dataObject, plistFormat, error = \
      NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(
-                    plistData, NSPropertyListMutableContainers, None, None)
+                    plistData, NSPropertyListMutableContainersAndLeaves, None, None)
     if error:
         error = error.encode('ascii', 'ignore')
         raise NSPropertyListSerializationException(error)
